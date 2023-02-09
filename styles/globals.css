@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* custom tailwindcss  */
+@layer components {
+  /* write custom classname here */
+  .infoText {
+    /* writing apply is must */
+    /* after slash is opacity */
+    @apply p-4 bg-gray-700/50 rounded-lg max-w-[300px];
+  }
+}

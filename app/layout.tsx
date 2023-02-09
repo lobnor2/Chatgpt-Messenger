@@ -8,7 +8,14 @@ export default function RootLayout({
   return (
     <html>
       <head />
-      <body>{children}</body>
+      <body>
+        <div className="flex">
+          {/* sidebar */}
+
+          {/* ClientProvider notification */}
+          <div className="bg-[#343541] flex-1">{children}</div>
+        </div>
+      </body>
     </html>
   );
 }
