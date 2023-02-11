@@ -6,7 +6,7 @@ import NewChat from "./NewChat";
 const SideBar = () => {
   const { data: session } = useSession();
   return (
-    <div className=" flex flex-col h-screen">
+    <div className="p-2 flex flex-col h-screen">
       <div className="flex-1">
         <div>
           <NewChat />
