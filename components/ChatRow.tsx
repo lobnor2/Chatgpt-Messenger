@@ -1,5 +1,5 @@
 import { ChatBubbleLeftIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { collection } from "firebase/firestore";
+import { collection, deleteDoc, doc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,6 +27,10 @@ const ChatRow = ({ id }: Props) => {
     setActive(pathname.includes(id));
   }, [pathname]);
 
+  const removeChat = async () => {
+    await deleteDoc(doc(db, "user", session?.user?.email!, "chats", id));
+    router.replace("/");
+  };
   return (
     <Link
       href={`/chat/${id}`}
@@ -38,7 +42,10 @@ const ChatRow = ({ id }: Props) => {
       <p className="flex-1 mx-2 hidden md:inline-flex truncate">
         {messages?.docs[messages?.docs.length - 1]?.data().text || "New Chat"}
       </p>
-      <TrashIcon className="h-5 w-5 text-gray-700 hover:text-red-700" />
+      <TrashIcon
+        onClick={removeChat}
+        className="h-5 w-5 text-gray-700 hover:text-red-700"
+      />
     </Link>
   );
 };
