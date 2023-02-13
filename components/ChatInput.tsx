@@ -3,6 +3,7 @@ import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
+import { toast } from "react-hot-toast";
 import { db } from "../firebase";
 
 type Props = {
@@ -12,6 +13,10 @@ type Props = {
 const ChatInput = ({ chatId }: Props) => {
   const { data: session } = useSession();
   const [prompt, setPrompt] = useState("");
+
+  //TODO: useSWR to get model
+
+  const model = "davinci";
 
   const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,7 +49,31 @@ const ChatInput = ({ chatId }: Props) => {
       message
     );
 
-    // Toast notification
+    // Toast notification to say loading
+    const notification = toast.loading("ChatGPT is thinking...");
+
+    //custom api
+    await fetch("/api/askQuestion", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: input,
+        chatId,
+        model,
+        session,
+      }),
+    })
+      .then(() => {
+        //Toast notification to say successfull
+        toast.success("ChatGPT has responded", {
+          id: notification,
+        });
+      })
+      .catch((err) => {
+        //toast notification to say error
+      });
   };
 
   return (
