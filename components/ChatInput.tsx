@@ -64,16 +64,12 @@ const ChatInput = ({ chatId }: Props) => {
         model,
         session,
       }),
-    })
-      .then(() => {
-        //Toast notification to say successfull
-        toast.success("ChatGPT has responded", {
-          id: notification,
-        });
-      })
-      .catch((err) => {
-        //toast notification to say error
+    }).then(() => {
+      //Toast notification to say successfull
+      toast.success("ChatGPT has responded", {
+        id: notification,
       });
+    });
   };
 
   return (
