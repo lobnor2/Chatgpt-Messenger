@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import { db } from "../firebase";
+import ModelSelection from "./ModelSelection";
 
 type Props = {
   chatId: string;
@@ -91,6 +92,9 @@ const ChatInput = ({ chatId }: Props) => {
           <PaperAirplaneIcon className="h-4 w-4 -rotate-45" />
         </button>
       </form>
+      <div className="md:hidden">
+        <ModelSelection />
+      </div>
     </div>
   );
 };
